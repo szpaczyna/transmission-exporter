@@ -1,8 +1,8 @@
 # Transmission Exporter
 
-![Build](https://github.com/j-dumbell/transmission-exporter/actions/workflows/build-test.yml/badge.svg)
-![License](https://img.shields.io/github/license/j-dumbell/transmission-exporter)
-![Go version](https://img.shields.io/github/go-mod/go-version/j-dumbell/transmission-exporter)
+![Build](https://github.com/szpaczyna/transmission-exporter/actions/workflows/build-test.yml/badge.svg)
+![License](https://img.shields.io/github/license/szpaczyna/transmission-exporter)
+![Go version](https://img.shields.io/github/go-mod/go-version/szpaczyna/transmission-exporter)
 
 A Prometheus exporter for the [Transmission](https://transmissionbt.com/) bittorrent client, written in Go. This exporter collects metrics from Transmission's RPC API and exposes them in Prometheus format for monitoring and alerting.
 
@@ -60,7 +60,7 @@ When enabled via `EXPORT_TORRENT_LEVEL_METRICS=true`, the exporter also collects
 
 ### Running with Docker (recommended)
 
-Production-ready Docker images are pushed to a Dockerhub [repository](https://hub.docker.com/repository/docker/jdumbell92/transmission-exporter/general) for convenience.
+Production-ready Docker images are pushed to a Dockerhub [repository](https://hub.docker.com/repository/docker/szpaczyn/transmission-exporter/general) for convenience.
 
 ```bash
 docker run \
@@ -71,7 +71,7 @@ docker run \
   -e TRANSMISSION_PASSWORD=password \
   -e PORT=2112 \
   -e EXPORT_TORRENT_LEVEL_METRICS=true \
-  jdumbell92/transmission-exporter:latest
+  szpaczyn/transmission-exporter:latest
 ```
 
 ### Running from Source
@@ -79,8 +79,8 @@ docker run \
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/j-dumbell/go-qbittorrent.git
-cd go-qbittorrent
+git clone https://github.com/szpaczyna/transmission-exporter.git
+cd transmission-exporter
 ```
 
 2. Build the exporter:
