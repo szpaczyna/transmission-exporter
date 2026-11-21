@@ -1,13 +1,15 @@
-FROM --platform=$BUILDPLATFORM golang:1.25.5-bookworm AS builder
+FROM --platform=$BUILDPLATFORM golang:1.25.5-alpine AS builder
 ARG TARGETOS TARGETARCH
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
 ENV CGO_ENABLED=0
-RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -ldflags="-s -w" -o /out/app ./cmd/exporter
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -ldflags="-s -w" -o /out/transmission-exporter ./cmd/exporter
 
-FROM gcr.io/distroless/static-debian12
-COPY --from=builder /out/app /app
+FROM alpine:3.21
+RUN apk add --no-cache ca-certificates
+COPY --from=builder /out/transmission-exporter /usr/bin/transmission-exporter
+RUN chmod 0755 /usr/bin/transmission-exporter
 USER 65532:65532
-ENTRYPOINT ["/app"]
+ENTRYPOINT ["/usr/bin/transmission-exporter"]
