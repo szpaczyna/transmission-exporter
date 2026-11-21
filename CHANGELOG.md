@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.3](https://github.com/szpaczyna/transmission-exporter/compare/v1.0.2...v1.0.3) (2026-11-21)
+
+
+### Bug Fixes
+
+* **ci:** show only versioned image in release notes ([#18](https://github.com/szpaczyna/transmission-exporter/issues/18)) ([07c863a](https://github.com/szpaczyna/transmission-exporter/commit/07c863ae8a3cf3f50d272887d178e1f98d1f8e75))
+
+
+### Miscellaneous
+
+* **ci:** publish release images to ghcr.io ([#20](https://github.com/szpaczyna/transmission-exporter/issues/20)) ([a86d5d2](https://github.com/szpaczyna/transmission-exporter/commit/a86d5d24d7cf6bf60e4021f57735f55621c9d790))
+
 ## [1.0.2](https://github.com/szpaczyna/transmission-exporter/compare/v1.0.1...v1.0.2) (2026-11-21)
 
 
