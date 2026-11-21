@@ -9,20 +9,30 @@ start-exporter:
 build-exporter:
 	go build ./cmd/exporter
 
-DOCKER_USERNAME ?= jdumbell92
+DOCKER_USERNAME ?= szpaczyn
 IMAGE_NAME ?= transmission-exporter
-IMAGE_TAG ?= latest
-IMAGE ?= $(DOCKER_USERNAME)/$(IMAGE_NAME):$(IMAGE_TAG)
+IMAGE_TAG ?= v1.0.0
 PLATFORMS ?= linux/amd64,linux/arm64
+BUILD_BY ?= shpaq
 
-docker-buildx-setup:
-	docker buildx inspect multiplatform > /dev/null 2>&1 || docker buildx create --name multiplatform --use --bootstrap
+docker-build-exporter:
+	docker buildx build \
+		--file Dockerfile \
+		--label=build-by=$(BUILD_BY) \
+		--platform $(PLATFORMS) \
+		-t $(DOCKER_USERNAME)/$(IMAGE_NAME):$(IMAGE_TAG) \
+		-t $(DOCKER_USERNAME)/$(IMAGE_NAME):latest \
+		.
 
-docker-build-exporter: docker-buildx-setup
-	docker buildx build --platform $(PLATFORMS) -f cmd/exporter/Dockerfile -t $(IMAGE) .
-
-docker-push-exporter: docker-buildx-setup
-	docker buildx build --platform $(PLATFORMS) -f cmd/exporter/Dockerfile -t $(IMAGE) --push .
+docker-push-exporter:
+	docker buildx build \
+		--file Dockerfile \
+		--label=build-by=$(BUILD_BY) \
+		--push \
+		--platform $(PLATFORMS) \
+		-t $(DOCKER_USERNAME)/$(IMAGE_NAME):$(IMAGE_TAG) \
+		-t $(DOCKER_USERNAME)/$(IMAGE_NAME):latest \
+		.
 
 docker-build-push-exporter: docker-push-exporter
 
